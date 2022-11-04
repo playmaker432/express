@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>All Bookings</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+
+    <table id="bookTable"></table>
+    <div id="links"></div>
+
+    <script>
+        async function fetchPage(page) {
+            var response = await fetch("/api/bookings?perPage=" + perPage + "&page=" + page);
+
+            var linksHTML = "";
+
+            if (response.ok) {
+                var data = await response.json();
+                // console.log(data);
+
+                var ngoDataHTML = "";
+
+                for (var ngodata of data.ngoData) {
+                    if (ngodata.type == "book") {
+                        ngoDataHTML += "<tr><td>Type: " + ngodata.type + "</td><br><td>Book Title: " + ngodata.book_title + "</td></tr>"
+                    }
+                }
+
+                document.getElementById("bookTable").innerHTML = ngoDataHTML;
+
+                var linksHTML = ""
+
+                for (var i = 1; i <= data.pages; i++) {
+                    linksHTML += `<button onclick='fetchPage(${i})'>${i}</button>`
+                }
+
+                document.getElementById("links").innerHTML = linksHTML;
+
+            } else {
+                alert(response.statusText)
+            }
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        var perPage = Math.max(parseInt(urlParams.get("perPage")), 2) || 2;
+
+        fetchPage(1)
+
+
+    </script>
+
+</body>
+
+</html>
