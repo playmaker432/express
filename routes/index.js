@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var url = 'mongodb://19222432:cNjEaAIX3x7wk2VAN4E5ME6eAFIh0OAmUSl9KkeJ96KDEriqgUtx8WymWN1Ll382mAXuB6ZJfABj4lxBq2JfTg==@19222432.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@19222432@';
